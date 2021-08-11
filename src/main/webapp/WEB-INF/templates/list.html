@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<html xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}">
+<head>
+    <title>Список пользователей</title>
+</head>
+<body>
+
+<div>
+    <h1>Задача 2.3.1</h1>
+    <!--/*@thymesVar id="#mvc.url('UC#addUserForm')).build()" type="org.springframework.web.servlet.mvc.support.RedirectAttributes"*/-->
+    <a th:href="${(#mvc.url('UC#addUserForm')).build()}">Создать нового пользователя</a>
+</div>
+
+<table th:border="1" th:remove="${users.size() == 0} ? all">
+    <tr>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Эл.почта</th>
+        <th>Операция</th>
+    </tr>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.getFirstName()}"></td>
+        <td th:text="${user.getLastName()}"></td>
+        <td th:text="${user.getEmail()}"></td>
+        <td>
+            <a type="button" th:href="@{/users/{id}/edit(id=${user.getId()})}" >Изменить</a>
+            <a type="button" th:href="@{/users/delete(id=${user.getId()})}" >Удалить</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

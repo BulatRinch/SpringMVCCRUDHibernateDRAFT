@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}">
+
+<head>
+    <title>Редактирование</title>
+</head>
+
+<body>
+<h1>Задача 2.3.1</h1>
+
+<form th:method="POST" th:action="@{/users}" th:object="${user}">
+    <input type="hidden" th:field="*{id}" th:value="*{getId()}">
+
+    <label>Имя</label>
+    <input th:field="*{firstName}" th:value="*{getFirstName()}" placeholder="Введите имя" required>
+    <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"/>
+    <br/>
+
+    <label>Фамилия</label>
+    <input th:field="*{lastName}" th:value="*{getLastName()}" placeholder="Введите фамилию">
+    <br/>
+
+    <label>Эл.почта</label>
+    <input th:field="*{email}" th:value="*{getEmail()}" placeholder="Введите эл.почту" required>
+    <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"/>
+    <br/>
+    <button type="submit" th:text="*{getId()} ? 'Сохранить' : 'Добавить'"/>
+    <a href="/users">Выйти</a>
+</form>
+</body>
+</html>
